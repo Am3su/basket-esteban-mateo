@@ -66,7 +66,7 @@ body.mega #c{filter:saturate(1.45) contrast(1.12)}
 .menu-left{display:flex;flex-direction:column;align-items:center;gap:clamp(8px,2vh,16px)}
 
 /* ---------- Intro video ---------- */
-#opening{padding:0;z-index:42;background:#000 url(assets/img/opening_poster.jpg) center/cover no-repeat;align-items:center;justify-content:center}
+#opening{padding:0;z-index:42;background:#000 url(opening_poster.jpg) center/cover no-repeat;align-items:center;justify-content:center}
 #opening .splash{position:relative;z-index:2;display:flex;flex-direction:column;align-items:center;gap:22px;padding:28px 34px;border-radius:30px;background:rgba(18,15,51,.55);backdrop-filter:blur(4px)}
 #opening .title{font-size:clamp(46px,12vmin,110px)}
 #opening .title small{font-size:.55em}
@@ -241,8 +241,8 @@ body.mega #grain{opacity:.14;animation:grain .5s steps(4) infinite}
     </div>
   </div>
   <div class="cards">
-    <button class="card" id="pickMateo"><img alt="Mateo" src="assets/img/mateo_card.jpg"><span class="nm">Mateo</span><span class="tap">Touche pour jouer</span></button>
-    <button class="card" id="pickEsteban"><img alt="Esteban" src="assets/img/esteban_card.jpg"><span class="nm">Esteban</span><span class="tap">Touche pour jouer</span></button>
+    <button class="card" id="pickMateo"><img alt="Mateo" src="mateo_card.jpg"><span class="nm">Mateo</span><span class="tap">Touche pour jouer</span></button>
+    <button class="card" id="pickEsteban"><img alt="Esteban" src="esteban_card.jpg"><span class="nm">Esteban</span><span class="tap">Touche pour jouer</span></button>
   </div>
 </section>
 
@@ -304,10 +304,10 @@ body.mega #grain{opacity:.14;animation:grain .5s steps(4) infinite}
 
 <div id="rotate" class="can">Tourne ton téléphone pour voir tout le terrain <button id="rotClose" aria-label="Fermer">OK</button></div>
 
-<script src="vendor/three.min.js"></script>
-<script src="vendor/postfx.js"></script>
+<script src="three.min.js"></script>
+<script src="postfx.js"></script>
 <script>
-window.ASSETS = {"video": {"mateo": "assets/video/intro_mateo.mp4", "esteban": "assets/video/intro_esteban.mp4", "opening": "assets/video/opening.mp4", "crowd": "assets/video/crowd.mp4", "crowd_up": "assets/video/crowd_up.mp4"}, "img": {"crowdPoster": "assets/img/crowd_poster.jpg"}};
+window.ASSETS = {"video": {"mateo": "intro_mateo.mp4", "esteban": "intro_esteban.mp4", "opening": "opening.mp4", "crowd": "crowd.mp4", "crowd_up": "crowd_up.mp4"}, "img": {"crowdPoster": "crowd_poster.jpg"}};
 window.FACES = {}; window.FACECFG = {};
 </script>
 <script>
@@ -646,8 +646,8 @@ function faceDecal(key, head) {
 const SPR_TEX = {};
 function loadSprites() {
   const addScript = src => new Promise(res => { const s = document.createElement('script'); s.src = src; s.async = true; s.onload = res; s.onerror = res; document.head.appendChild(s); });
-  if (location.protocol === 'file:') addScript('assets/poster.js').then(() => { if (window.__setCrowdPoster) window.__setCrowdPoster(); });
-  return Promise.all(['mateo', 'esteban', 'sami', 'lina'].map(k => addScript('assets/sprites/' + k + '.js'))).then(() => {
+  if (location.protocol === 'file:') addScript('poster.js').then(() => { if (window.__setCrowdPoster) window.__setCrowdPoster(); });
+  return Promise.all(['mateo', 'esteban', 'sami', 'lina'].map(k => addScript('sprites_' + k + '.js'))).then(() => {
     const man = window.SPRITE_PACKS;
     if (!man || !Object.keys(man).length) return;
     window.SPRITEMETA = {}; window.SPRITEMAP = {};
