@@ -48,10 +48,11 @@ body.mega #c{filter:saturate(1.45) contrast(1.12)}
 .levels{border-radius:22px}
 .levels button{white-space:nowrap;border-radius:18px !important;line-height:1.15;padding:8px 14px;border-radius:999px;background:transparent;font-weight:800;font-size:clamp(13px,2.6vmin,16px);opacity:.75}
 .levels button[aria-pressed="true"]{background:var(--gold);color:#2a1245;opacity:1;box-shadow:0 3px 0 #b07c10}
-.cards{display:flex;gap:clamp(12px,3vw,32px);justify-content:center;align-items:stretch;max-width:760px;width:100%}
+.cards{display:flex;gap:clamp(10px,2.4vw,28px);justify-content:center;align-items:stretch;max-width:900px;width:100%}
 .card{flex:1 1 0;max-width:260px;border-radius:26px;padding:8px 8px 12px;background:linear-gradient(170deg,var(--gold),#f39c12);
   box-shadow:0 7px 0 #8a5a07,0 18px 36px rgba(0,0,0,.45);transition:transform .15s;display:flex;flex-direction:column;align-items:center;gap:6px;color:#2a1245}
 .card:nth-child(2){background:linear-gradient(170deg,#b98cf2,var(--purple-2));box-shadow:0 7px 0 #3c1a66,0 18px 36px rgba(0,0,0,.45);color:#fff}
+.card:nth-child(3){background:linear-gradient(170deg,#ffb38a,#ff6b3d);box-shadow:0 7px 0 #a8391a,0 18px 36px rgba(0,0,0,.45);color:#fff}
 .card:active{transform:translateY(5px) scale(.98)}
 .card img{width:100%;aspect-ratio:3/4;max-height:34vh;object-fit:cover;object-position:50% 12%;border-radius:19px;background:#e9e7ea;display:block}
 .card .nm{font-family:var(--display);font-size:clamp(24px,5vmin,36px);line-height:1}
@@ -60,7 +61,8 @@ body.mega #c{filter:saturate(1.45) contrast(1.12)}
   #menu{flex-direction:row;flex-wrap:wrap;align-content:center;gap:10px 28px}
   .menu-left{display:flex;flex-direction:column;align-items:center;gap:12px;max-width:44%}
   .cards{width:auto;flex:0 1 auto}
-  .card{width:min(30vw,190px)}
+  .card{width:min(17vw,150px)}
+  .menu-left{max-width:34%}
   .card img{max-height:52vh}
 }
 .menu-left{display:flex;flex-direction:column;align-items:center;gap:clamp(8px,2vh,16px)}
@@ -243,6 +245,7 @@ body.mega #grain{opacity:.14;animation:grain .5s steps(4) infinite}
   <div class="cards">
     <button class="card" id="pickMateo"><img alt="Mateo" src="mateo_card.jpg"><span class="nm">Mateo</span><span class="tap">Touche pour jouer</span></button>
     <button class="card" id="pickEsteban"><img alt="Esteban" src="esteban_card.jpg"><span class="nm">Esteban</span><span class="tap">Touche pour jouer</span></button>
+    <button class="card" id="pickEvan"><img alt="Evan" src="evan_card.jpg"><span class="nm">Evan</span><span class="tap">Touche pour jouer</span></button>
   </div>
 </section>
 
@@ -307,7 +310,7 @@ body.mega #grain{opacity:.14;animation:grain .5s steps(4) infinite}
 <script src="three.min.js"></script>
 <script src="postfx.js"></script>
 <script>
-window.ASSETS = {"video": {"mateo": "intro_mateo.mp4", "esteban": "intro_esteban.mp4", "opening": "opening.mp4", "crowd": "crowd.mp4", "crowd_up": "crowd_up.mp4"}, "img": {"crowdPoster": "crowd_poster.jpg"}};
+window.ASSETS = {"video": {"mateo": "intro_mateo.mp4", "esteban": "intro_esteban.mp4", "evan": "intro_evan.mp4", "opening": "opening.mp4", "crowd": "crowd.mp4", "crowd_up": "crowd_up.mp4"}, "img": {"crowdPoster": "crowd_poster.jpg"}};
 window.FACES = {}; window.FACECFG = {};
 </script>
 <script>
@@ -647,7 +650,7 @@ const SPR_TEX = {};
 function loadSprites() {
   const addScript = src => new Promise(res => { const s = document.createElement('script'); s.src = src; s.async = true; s.onload = res; s.onerror = res; document.head.appendChild(s); });
   if (location.protocol === 'file:') addScript('poster.js').then(() => { if (window.__setCrowdPoster) window.__setCrowdPoster(); });
-  return Promise.all(['mateo', 'esteban', 'sami', 'lina'].map(k => addScript('sprites_' + k + '.js'))).then(() => {
+  return Promise.all(['mateo', 'esteban', 'evan', 'sami', 'lina'].map(k => addScript('sprites_' + k + '.js'))).then(() => {
     const man = window.SPRITE_PACKS;
     if (!man || !Object.keys(man).length) return;
     window.SPRITEMETA = {}; window.SPRITEMAP = {};
@@ -881,7 +884,8 @@ const HOME = { jersey: 0xF6B73C, trim: 0x55288C, shorts: 0xF6B73C, numColor: '#5
 const AWAY = { jersey: 0x1E6FE0, trim: 0xffffff, shorts: 0x1E6FE0, numColor: '#ffffff', numStroke: '#0d3f8a', shoe: 0xf4f4f4, sole: 0x1E6FE0, sock: 0xffffff, lace: 0x1E6FE0 };
 const HEROES = {
   mateo: { name: 'Mateo', num: 77, skin: 0xd19972, hair: 0x1c130e, hairStyle: 'mateo', face: 'mateo', neck: 'round', bigEars: true, shoe: 0x141414, lace: 0xC0231E },
-  esteban: { name: 'Esteban', num: 77, skin: 0xbc8967, hair: 0x2e1e14, hairStyle: 'esteban', face: 'esteban', neck: 'v', shoe: 0x262626, lace: 0xD22A1E }
+  esteban: { name: 'Esteban', num: 77, skin: 0xbc8967, hair: 0x2e1e14, hairStyle: 'esteban', face: 'esteban', neck: 'v', shoe: 0x262626, lace: 0xD22A1E },
+  evan: { name: 'Evan', num: 77, skin: 0xe2b08a, hair: 0x5a3a20, hairStyle: 'esteban', face: 'evan', neck: 'v', shoe: 0xf2f2f2, lace: 0x55288C }
 };
 const LEO = { name: 'Léo', num: 12, skin: 0xE6BC98, hair: 0xB7793A, hairStyle: 'spiky', eye: 0x3a6b9a, neck: 'round' };
 const OPPS = [
@@ -928,7 +932,8 @@ function makePlayer(spec, teamIdx, idx, isUser) {
 
 function setupTeams() {
   for (const p of players) { scene.remove(p.kid.root); if (p.kid.shadow) scene.remove(p.kid.shadow); }
-  const other = heroKey === 'mateo' ? 'esteban' : 'mateo';
+  const others = Object.keys(HEROES).filter(k => k !== heroKey);
+  const other = others[(Math.random() * others.length) | 0];
   players = [
     makePlayer(HEROES[heroKey], 0, 0, true),
     makePlayer(HEROES[other], 0, 1, false),
@@ -1856,6 +1861,7 @@ $('#opVid').addEventListener('error', () => { if ($('#opening').classList.contai
 $('#opSkip').addEventListener('click', toMenuFromOpening);
 $('#pickMateo').addEventListener('click', () => pick('mateo'));
 $('#pickEsteban').addEventListener('click', () => pick('esteban'));
+$('#pickEvan').addEventListener('click', () => pick('evan'));
 $('#vid').addEventListener('ended', () => beginMatch());
 $('#vid').addEventListener('error', () => { if (phase === 'intro') beginMatch(); });
 $('#skip').addEventListener('click', () => beginMatch());
